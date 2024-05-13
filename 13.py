@@ -69,9 +69,16 @@ ax[0,0].set_xlabel('Time')
 ax[0,0].set_ylabel('Data')
 
 ax[0,1].plot(kf,dftf)
+ax[0,1].set_xlabel('Freuquency')
+ax[0,1].set_ylabel('Fourier Tranform')
 
 ax[1,0].plot(kf,period)
+ax[1,0].set_xlabel('Freuquency')
+ax[1,0].set_ylabel('P(k)')
+
 
 ax[1,1].plot(k_bin,per_bin)
+ax[1,1].set_xlabel('Binned Freuquency')
+ax[1,1].set_ylabel('P(k)')
 
 plt.show()
