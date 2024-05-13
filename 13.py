@@ -37,7 +37,7 @@ period = [np.abs(x)**2 for x in dftf]
 # BINNING THE SPECTRUM ****************************************************
 
 kmin,kmax = kf[0],kf[-1]
-bin = 50
+bin = 51
 delta = (kmax-kmin)/bin
 k_bin,per_bin = [],[]
 
