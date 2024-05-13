@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-#QUESTION 1
+#****** QUESTION 1 **************************************************
 
 def f(x):
     if (x==0):
