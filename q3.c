@@ -6,7 +6,9 @@
 #define REAL(z,i) ((z)[2*(i)])
 #define IMAG(z,i) ((z)[2*(i)+1])
 #define N 200
-#define xlim 50
+#define xmin -50
+#define xmax 50
+
 
 double sinc(double x) {
     if (x == 0.0){
@@ -17,34 +19,29 @@ double sinc(double x) {
 }
 
 int main() {
-    double Delta = (double) 2 * xlim / (N - 1);
-    double data[2*N];
+    double Delta = (double)  (xmax-xmin) / (N - 1);
+    double dft[2*N];
 
     gsl_fft_complex_wavetable * wavetable;
     gsl_fft_complex_workspace * workspace;
 
     for (int i=0; i < N; i++) {
-        double x = -xlim + i * Delta;
-        REAL(data,i) = sinc(x);//Real Part
-        IMAG(data,i) = 0.0;//Imaginary Part
+        double x = xmin + i * Delta;
+        REAL(dft,i) = sinc(x);
+        IMAG(dft,i) = 0.0;
     }
-
     wavetable = gsl_fft_complex_wavetable_alloc(N);
     workspace = gsl_fft_complex_workspace_alloc(N);
 
-    gsl_fft_complex_forward(data, 1, N, wavetable, workspace);
+    gsl_fft_complex_forward(dft, 1, N, wavetable, workspace);
 
-    FILE *file = fopen("q3_data.csv","w");
-
+    FILE *file = fopen("q3_1_data.csv","w");
     for (int i = 0; i < N; i++) {
-        fprintf(file, "%g, %g\n", REAL(data,i), IMAG(data,i));
+        fprintf(file, "%g, %g\n", REAL(dft,i), IMAG(dft,i));
     }
 
     gsl_fft_complex_wavetable_free (wavetable);
     gsl_fft_complex_workspace_free (workspace);
     fclose(file);
-
-    printf("Fourier transform data has been written to 'q3_data.csv'.\n");
-
     return 0;
 }
