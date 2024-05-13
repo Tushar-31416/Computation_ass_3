@@ -40,6 +40,13 @@ for l in range(N):
 
 
 
-plt.plot(final_k,final_dft)
+def anal(k):
+    return 1/2.* np.sqrt(np.pi/2)*(np.sign(1-k)+np.sign(1+k))
+
+k = np.array(final_k)
+
+plt.plot(final_k,final_dft,label='Numerical')
+plt.plot(k,anal(k),label='Analytical')
 plt.xlim(-5,5)
+plt.legend()
 plt.show()
