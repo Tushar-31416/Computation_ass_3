@@ -45,11 +45,9 @@ d = delta
 n = 0
 for i in range(1,bin+1):
     dftb = 0
-    print('i=',i)
     while(kf[n]<kf[0]+i*d):
         dftb = dftb + period[n]
         n = n+1
-        print('n =',n)
         if(n==len(kf)):
             break
     per_bin.append(dftb)
