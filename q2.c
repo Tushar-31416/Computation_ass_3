@@ -4,7 +4,8 @@
 #include <fftw3.h>
 
 #define N 200
-#define xlim 50
+#define xmin -50
+#define xmax 50
 
 double sinc(double x) {
     if (x == 0.0){
@@ -15,31 +16,24 @@ double sinc(double x) {
 }
 
 int main() {
-    double delta = (double) 2 * xlim / (N - 1);
-
-    fftw_complex in[N], out[N];
-    fftw_plan p;
+    double delta = (double) (xmax - xmin) / (N - 1);
+    fftw_complex func[N], dft[N];
+    fftw_plan fp;
     
     for (int i=0; i < N; i++) {
-        in[i] = sinc(-xlim + i * delta) + I * 0.0;
+        func[i] = sinc(xmin + i * delta) + I * 0.0;
     }
 
-    p = fftw_plan_dft_1d(N, in, out, FFTW_FORWARD, FFTW_ESTIMATE);
-
-    fftw_execute(p);
-
+    fp = fftw_plan_dft_1d(N,func,dft,FFTW_FORWARD,FFTW_ESTIMATE);
+    fftw_execute(fp);
     FILE *file = fopen("q2_data.csv","w");
 
     for (int i = 0; i < N; i++) {
-        fprintf(file, "%g, %g\n", creal(out[i]), cimag(out[i]));
+        fprintf(file, "%g, %g\n", creal(dft[i]), cimag(dft[i]));
     }
-
     fclose(file);
 
-    fftw_destroy_plan(p);
+    fftw_destroy_plan(fp);
     fftw_cleanup();
-
-    printf("Fourier transform data has been written to 'q2_data.csv'.\n");
-
     return 0;
 }
