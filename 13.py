@@ -34,7 +34,7 @@ for i in range(N):
 
 period = [np.abs(x)**2 for x in dftf]
 
-# BINNING THE SPECTRUM ****************************************************
+# BINNING THE SPECTRUM (10 K POINTS IN EACH BIN)****************************************************
 
 kmin,kmax = kf[0],kf[-1]
 bin = 51
